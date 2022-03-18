@@ -116,7 +116,7 @@ struct coroutine *get_next_coroutine()
         : "memory");
 #endif
 
-static void coroutine_finished()
+__attribute__((noinline)) static void coroutine_finished()
 {
     current_coroutine->state = CO_FINISHED;
     if (current_coroutine->waiter)
@@ -134,20 +134,23 @@ void coyield()
     {
         if (nextco->state == CO_NEW)
         {
-
-            // current_coroutine = nextco; //work fine
-            nextco->state = CO_READY;
             current_coroutine = nextco;
+            nextco->state = CO_READY;
             STACK_SWITCH_CALL(nextco->stack + FIXED_STACK_SIZE, nextco->entry, nextco->arg);
 
             coroutine_finished();
 
             assert(0); // Never run here.
         }
-        else // == CO_READY
+        // else // == CO_READY
+        else if (nextco->state == CO_READY)
         {
             current_coroutine = nextco;
             longjmp(nextco->env, (int)(!0));
+        }
+        else
+        {
+            assert(0);
         }
     }
 }
