@@ -116,6 +116,14 @@ struct coroutine *get_next_coroutine()
         : "memory");
 #endif
 
+static void coroutine_finished()
+{
+    current_coroutine->state = CO_FINISHED;
+    if (current_coroutine->waiter)
+        current_coroutine->waiter->state = CO_READY;
+    coyield();
+}
+
 void coyield()
 {
     struct coroutine *nextco = get_next_coroutine();
@@ -132,12 +140,7 @@ void coyield()
             current_coroutine = nextco;
             STACK_SWITCH_CALL(nextco->stack + FIXED_STACK_SIZE, nextco->entry, nextco->arg);
 
-            current_coroutine->state = CO_FINISHED;
-
-            if (current_coroutine->waiter)
-                current_coroutine->waiter->state = CO_READY;
-
-            coyield();
+            coroutine_finished();
 
             assert(0); // Never run here.
         }
