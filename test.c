@@ -16,12 +16,13 @@ void fun(void *arg)
 #define N 1023
 // #define N 10
 
-
 struct coroutine *list[N];
 char str[] = "abcdefghijklmnopqrstuvwxyz";
-int main(void)
+int main(int argc, char **argv)
 {
+
     setbuf(stdout, NULL);
+    printf("%s\n", *argv);
     printf("Start!\n\n");
 
     for (int i = 0; i < N; i++)
@@ -35,6 +36,5 @@ int main(void)
     }
 
     printf("\n\nDone!\n\n");
-
     return 0;
 }

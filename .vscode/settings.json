@@ -12,6 +12,7 @@
         "ostream": "c",
         "sstream": "c",
         "stop_token": "c",
-        "streambuf": "c"
+        "streambuf": "c",
+        "stdio.h": "c"
     }
 }
