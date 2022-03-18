@@ -10,7 +10,7 @@
 enum coroutine_state
 {
     CO_NEW = 1,  // new coroutine create by costart()
-    CO_READY,    // ready to run
+    CO_READY,    // ready to run,maybe now running or not
     CO_WAITTING, // the coroutine call cowait()
     CO_FINISHED, // the coroutine finished the job
 };

@@ -1,0 +1,17 @@
+{
+    "files.associations": {
+        "*.rmd": "markdown",
+        "*.tcc": "c",
+        "optional": "c",
+        "functional": "c",
+        "random": "c",
+        "fstream": "c",
+        "future": "c",
+        "istream": "c",
+        "mutex": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "stop_token": "c",
+        "streambuf": "c"
+    }
+}
