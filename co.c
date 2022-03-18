@@ -234,7 +234,8 @@ void cowait(struct coroutine *co)
     else
     {
         assert(co != current_coroutine); // Waitting for yourself finished is dealock.
-        // when a coroutine's state is CO_WAITTING,it will not be shedlued.
+
+        // When a coroutine's state is CO_WAITTING,it will not be shedlued.
         current_coroutine->state = CO_WAITTING;
 
         // till this's waitting coroutine finished and set this coroutine's state to CO_READY in coroutine_finished().
